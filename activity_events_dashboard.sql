@@ -7,13 +7,13 @@ select
 	 ,ae.item_type
 	 
 	 /*basic info on the target entity, where applicable*/
-	 ,e.interact_id 								 as worker_interact_id
+	 ,e.interact_id 				 as worker_interact_id
 	 ,e.first_name ||' '|| coalesce (e.last_name,'') as worker_name
 	 
 	 /*basic info from users table*/
 	 ,u.first_name ||' '|| u.last_name 	as user_name
-	 ,u.email 							as user_email
-	 ,u.role 							as user_role
+	 ,u.email 				as user_email
+	 ,u.role 				as user_role
 	 
 	 /*campaign info*/
 	 ,c.name as campaign_name
