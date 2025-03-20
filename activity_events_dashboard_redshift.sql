@@ -29,13 +29,13 @@ select
 	 		when ae.name = 'create_entity_tags' then json_extract_path_text(json_extract_path_text(json_extract_path_text(payload,'taggableLogbook'),'tag'),'name')::text
 	  		else null end as value
 	 
-	 /*derive from "payload" a "value" field to reflect the update made -- the tag applied, assessment made, note entered, etc*/
+	 /*for assessments applied, derive from "payload" the previous assessment value*/
 	 ,case 	when ae.name = 'create_assessment' then json_extract_path_text(json_extract_path_text(ae.payload, 'before'),'level')::text else null end as previous_assessment
 	  
 	/*flag a list of values in ae."name" as quick-apply operations*/
 	,case 	when left(ae.name,4) = 'mass' then 'y' else 'n' end as quick_apply_flag
 		
-	/*for these quick-apply operations, derive from "payload" a count of entities affected*/
+	/*for these quick-apply operations, derive from "payload" a count of entities affected, or return 1 for non-quick-apply*/
 	,case 	when left(ae.name,4) = 'mass' then json_extract_path_text(ae.payload, 'entitiesAffected')::int else 1 end as entities_affected
 	
 	/*group item_type and name values into an update_category field */						
