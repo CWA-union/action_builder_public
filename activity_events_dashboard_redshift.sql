@@ -1,3 +1,6 @@
+/* 	This query selects from Action Builder's activity_events table (which mirrors the Activity Stream in the UI), along with basic info from the entities, users, and campaigns tables.
+	Several CASE statements help categorize the various updates and derive several values from the 'payload' field in the activity_events table, for use in reporting on Action Builder usage. */
+
 select 
 	  	  
 	 /*info from the activity_events table*/

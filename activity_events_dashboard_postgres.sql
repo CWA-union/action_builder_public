@@ -1,3 +1,6 @@
+/* 	This query selects from Action Builder's activity_events table (which mirrors the Activity Stream in the UI), along with basic info from the entities, users, and campaigns tables.
+	Several CASE statements help categorize the various updates and derive several values from the 'payload' field in the activity_events table, for use in reporting on Action Builder usage. */
+
 select 
 	 	  
 	 /*info from the activity_events table*/
@@ -49,9 +52,10 @@ select
 			else 'Other'
 			end as update_category
 			
-from cwa.activity_events ae 
-	inner join cwa.campaigns c on ae.campaign_id = c.id
-	inner join cwa.users u on ae.user_id = u.id
-	inner join cwa.users u2 on c.support_user_id = u2.id 
-	left join cwa.entities e on ae.target_id = e.id 
+from activity_events ae 
+	inner join campaigns c on ae.campaign_id = c.id
+	inner join users u on ae.user_id = u.id
+	inner join users u2 on c.support_user_id = u2.id 
+	left join entities e on ae.target_id = e.id 
+	
 where ae.created_at > (current_date - interval '90 days')
