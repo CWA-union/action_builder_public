@@ -6,10 +6,10 @@
 
 /*set the campaign you want to review, and your AB subdomain*/
 with variables as (
-select 
-	 17 	as campaign_id
-	,1		as entity_type_id
-	,'cwa' 	as subdomain
+	select 
+		 17 	as campaign_id
+		,1	as entity_type_id
+		,'cwa' 	as subdomain
 	)
 
 /*find all numbers that occur more than once in the campaign*/
@@ -21,7 +21,7 @@ select
 		inner join campaigns_entities ce on e.id = ce.entity_id		
 		inner join phone_numbers pn on e.id = pn.owner_id 
 	where 
-			ce.campaign_id = (select campaign_id from variables)
+		    ce.campaign_id = (select campaign_id from variables)
 		and e.entity_type_id = (select entity_type_id from variables)
 		and pn.status <> 'bad'
 		
@@ -44,7 +44,7 @@ select
 		inner join phone_numbers pn on e.id = pn.owner_id 
 		inner join duplicate_numbers dp on pn.number = dp.number
 	where
-			ce.campaign_id = (select campaign_id from variables)
+		    ce.campaign_id = (select campaign_id from variables)
 		and e.entity_type_id = (select entity_type_id from variables)
 )
 
@@ -59,5 +59,5 @@ select
 from potential_duplicate_entities p1
 	inner join potential_duplicate_entities p2 on p1.number = p2.number
 where 
-		p1.row_no = 1
+	    p1.row_no = 1
 	and p2.row_no = 2
