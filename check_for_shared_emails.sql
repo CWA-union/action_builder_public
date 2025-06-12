@@ -8,7 +8,7 @@
 with variables as (
 	select 
 		 17 	as campaign_id
-		,1		as entity_type_id
+		,1	as entity_type_id
 		,'cwa' 	as subdomain
 )
 
@@ -21,7 +21,7 @@ with variables as (
 		inner join campaigns_entities ce on e.id = ce.entity_id		
 		inner join emails em on e.id = em.owner_id 
 	where 
-			ce.campaign_id = (select campaign_id from variables)
+		    ce.campaign_id = (select campaign_id from variables)
 		and e.entity_type_id = (select entity_type_id from variables)
 		and em.status <> 'bad'
 	group by em.email
@@ -43,7 +43,7 @@ with variables as (
 		inner join emails em on e.id = em.owner_id 
 		inner join duplicate_emails de on em.email = de.email
 	where
-			ce.campaign_id = (select campaign_id from variables)
+		    ce.campaign_id = (select campaign_id from variables)
 		and e.entity_type_id = (select entity_type_id from variables)
 )
 
@@ -58,5 +58,5 @@ select
 from potential_duplicate_entities p1
 	inner join potential_duplicate_entities p2 on p1.email = p2.email
 where 
-		p1.row_no = 1
+	    p1.row_no = 1
 	and p2.row_no = 2
