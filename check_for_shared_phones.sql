@@ -10,7 +10,7 @@ with variables as (
 		 17 	as campaign_id
 		,1	as entity_type_id
 		,'cwa' 	as subdomain
-	)
+)
 
 /*find all numbers that occur more than once in the campaign*/
 ,duplicate_numbers as (
